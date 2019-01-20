@@ -20,12 +20,12 @@ COPY docker/php7/php-fpm.d/www.conf /etc/php7/php-fpm.d/
 
 RUN apk add tzdata
 RUN cp /usr/share/zoneinfo/UTC /etc/localtime
-RUN echo "UTC" > /etc/timezone
-RUN sed -i "s|;*date.timezone =.*|date.timezone = UTC|i" /etc/php7/php.ini
+RUN echo "Europe/Madrid" > /etc/timezone
+RUN sed -i "s|;*date.timezone =.*|date.timezone = Europe/Madrid|i" /etc/php7/php.ini
 
 RUN git clone https://github.com/tsolucio/corebos
 
-RUN mv corebos/. /www
+RUN mv corebos/* /www
 
 RUN rm -rf corebos
 
