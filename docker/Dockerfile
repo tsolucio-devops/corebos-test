@@ -36,6 +36,6 @@ COPY --chown=www:www docker/config.inc.php /www/
 
 WORKDIR /www
 
-COPY /docker/start.sh ./www/start.sh
+COPY /docker/start.sh /www/start.sh
 
 CMD ["start.sh"]
