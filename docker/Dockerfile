@@ -1,12 +1,19 @@
 FROM alpine:3.7
 
-RUN apk update && apk upgrade && apk add curl bash git
+RUN apk update && apk upgrade && apk nginx add curl bash git
 RUN adduser -D -g 'www' www
 
 RUN mkdir /www
 RUN chown -R www:www /www
 
+COPY docker/nginx.conf /etc/nginx/
+
 RUN mkdir -p /run/php
+RUN mkdir -p /run/nginx
+
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+
 
 RUN apk add php7-fpm php7-mcrypt php7-soap php7-openssl php7-gmp php7-pdo_odbc php7-json \
     php7-dom php7-pdo php7-zip php7-mysqli php7-sqlite3 php7-apcu php7-pdo_pgsql php7-bcmath \
@@ -23,6 +30,10 @@ RUN ls /usr/share/zoneinfo
 RUN cp /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 RUN echo "Europe/Madrid" > /etc/timezone
 
+RUN chown -R www:www /var/lib/nginx
+RUN chown -R www:www /var/tmp/nginx
+
+
 RUN git clone https://github.com/tsolucio/corebos
 
 RUN mv corebos/* /www
@@ -33,6 +44,9 @@ RUN chown www:www -R /www
 
 COPY --chown=www:www . /www/build/coreBOSTests
 COPY --chown=www:www docker/config.inc.php /www/
+
+COPY docker/supervisor.conf /etc/supervisor/conf.d/supervisord.conf
+
 
 WORKDIR /www
 
