@@ -33,8 +33,10 @@ RUN chown www:www -R /www
 
 COPY --chown=www:www . /www/build/coreBOSTests
 COPY --chown=www:www dev/config.inc.php /
-RUN mv config.inc.php /www/
+RUN mv docker/config.inc.php /www/
 
 WORKDIR /www
 
-CMD ["build/coreBOSTests/phpunit", "-c", "build/coreBOSTests/phpunit.xml"]
+COPY /docker/start.sh ./www/start.sh
+
+CMD ["start.sh"]
