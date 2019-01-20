@@ -1,3 +1,5 @@
+#!/bin/sh
+
 build/HelperScripts/update_tabdata
 
 build/HelperScripts/createuserfiles
