@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE corebos;'
+  - mysql -u root --password="" corebos < database/coreBOSTests.sql
+  - docker build -t tsolucio/corebos-test -f ./docker/Dockerfile .
+
+script:
+  - docker run tsolucio/corebos-test
