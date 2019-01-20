@@ -32,8 +32,7 @@ RUN rm -rf corebos
 RUN chown www:www -R /www
 
 COPY --chown=www:www . /www/build/coreBOSTests
-COPY --chown=www:www docker/config.inc.php /
-RUN mv docker/config.inc.php /www/
+COPY --chown=www:www docker/config.inc.php /www/
 
 WORKDIR /www
 
