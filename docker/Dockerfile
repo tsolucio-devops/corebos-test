@@ -19,9 +19,9 @@ COPY docker/php7/php-fpm.conf /etc/php7/
 COPY docker/php7/php-fpm.d/www.conf /etc/php7/php-fpm.d/
 
 RUN apk add tzdata
-RUN cp /usr/share/zoneinfo/UTC /etc/localtime
+RUN ls /usr/share/zoneinfo
+RUN cp /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 RUN echo "Europe/Madrid" > /etc/timezone
-RUN sed -i "s|;*date.timezone =.*|date.timezone = Europe/Madrid|i" /etc/php7/php.ini
 
 RUN git clone https://github.com/tsolucio/corebos
 
